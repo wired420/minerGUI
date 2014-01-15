@@ -1,0 +1,9 @@
+c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\Wired_Miner_GUI.About.resources
+c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\Wired_Miner_GUI.Main.resources
+c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\Wired Miner.csproj.GenerateResource.Cache
+c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\bin\Debug\Wired_Miner_GUI.exe.config
+c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\bin\Debug\Wired_Miner_GUI.exe
+c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\bin\Debug\Wired_Miner_GUI.pdb
+c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\Wired_Miner_GUI.Properties.Resources.resources
+c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\Wired_Miner_GUI.exe
+c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\Wired_Miner_GUI.pdb
