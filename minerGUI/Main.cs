@@ -87,8 +87,6 @@ namespace minerGUI
             worker.DoHardWork();
         }
 
-
-
         private void ShowSplashScreen()
         {
             splashScreen.Show();
@@ -114,6 +112,8 @@ namespace minerGUI
         public void txtPoolAddr_TextChanged(object sender, EventArgs e)
         {
             poolAddr = txtPoolAddr.Text;
+            mainSettings.mpPoolAddress = poolAddr;
+            mainSettings.Save();
         }
 
         public void txtLogin_TextChanged(object sender, EventArgs e)
@@ -142,6 +142,8 @@ namespace minerGUI
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             DialogResult result = fbd.ShowDialog();
             workDir = fbd.SelectedPath;
+            mainSettings.minerDirectory = workDir;
+            mainSettings.Save();
         }
 
         public void radMinerEB_CheckedChanged(object sender, EventArgs e)
@@ -204,6 +206,8 @@ namespace minerGUI
         public void txtDiff_TextChanged(object sender, EventArgs e)
         {
             diffLevel = txtDiff.Text;
+            mainSettings.diffSetting = diffLevel;
+            mainSettings.Save();
         }
 
         public void btnSetDir_Click(object sender, EventArgs e)
@@ -211,6 +215,8 @@ namespace minerGUI
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             DialogResult result = fbd.ShowDialog();
             workDir = fbd.SelectedPath;
+            mainSettings.minerDirectory = workDir;
+            mainSettings.Save();
         }
 
         public static string strMinExe
@@ -298,6 +304,20 @@ namespace minerGUI
                 SecureString token = DecryptString(mainSettings.accountToken);
                 txtToken.Text = ToInsecureString(token);
                 token = ToSecureString("");
+            }
+            if (mainSettings.minerDirectory != "")
+            {
+                workDir = mainSettings.minerDirectory;
+            }
+            if (mainSettings.mpPoolAddress != "")
+            {
+                poolAddr = mainSettings.mpPoolAddress;
+                txtPoolAddr.Text = poolAddr;
+            }
+            if (mainSettings.diffSetting != "")
+            {
+                diffLevel = mainSettings.diffSetting;
+                txtDiff.Text = diffLevel;
             }
             tipChkToken.SetToolTip(this.chkToken, "See https://mining.bitcoin.cz/accounts/token-manage/");
         }

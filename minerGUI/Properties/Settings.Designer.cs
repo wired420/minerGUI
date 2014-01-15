@@ -58,5 +58,41 @@ namespace minerGUI.Properties {
                 this["accountToken"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string minerDirectory {
+            get {
+                return ((string)(this["minerDirectory"]));
+            }
+            set {
+                this["minerDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string mpPoolAddress {
+            get {
+                return ((string)(this["mpPoolAddress"]));
+            }
+            set {
+                this["mpPoolAddress"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string diffSetting {
+            get {
+                return ((string)(this["diffSetting"]));
+            }
+            set {
+                this["diffSetting"] = value;
+            }
+        }
     }
 }
