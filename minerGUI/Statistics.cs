@@ -29,9 +29,6 @@ namespace minerGUI
         [DllImport("user32.dll")]
         private static extern bool EnableWindow(IntPtr hwnd, bool enabled);
 
-        public static int SW_SHOW = 5;
-        public static int SW_HIDE = 0;
-
         internal enum WindowShowStyle : uint
         {
             Hide = 0,
@@ -52,6 +49,10 @@ namespace minerGUI
         public static System.Timers.Timer updateTimer, autoUpdateTimer;
         public static bool updateEnabled;
         public static decimal c;
+        string url = "https://mining.bitcoin.cz/accounts/profile/json/" + Main.myToken;
+        string url2 = "https://mining.bitcoin.cz/stats/json/" + Main.myToken;
+        myStats personalStats = new myStats();
+        poolStats groupStats = new poolStats();
 
         public Statistics()
         {
@@ -70,11 +71,6 @@ namespace minerGUI
             updateTimer.Interval = 60000;
             updateTimer.Enabled = true;
         }
-
-        string url = "https://mining.bitcoin.cz/accounts/profile/json/" + Main.myToken;
-        string url2 = "https://mining.bitcoin.cz/stats/json/" + Main.myToken;
-        myStats personalStats = new myStats();
-        poolStats groupStats = new poolStats();
 
         public T _download_serialized_json_data<T>(string url) where T : new()
         {
