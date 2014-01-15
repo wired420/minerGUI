@@ -14,7 +14,7 @@ namespace minerGUI
 {
     public partial class Main : Form
     {
-        static byte[] entropy = System.Text.Encoding.Unicode.GetBytes("%Cow!Boy1Butts*Drive%Me#Nutsz");
+        static byte[] entropy = System.Text.Encoding.Unicode.GetBytes("Encryption Key: Enter Non-Default Salt Value Here.");
 
         [DllImport("user32.dll", SetLastError = true)]
         private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);

@@ -1,13 +1,1 @@
 C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\bin\Release\minerGUI.exe.config
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\bin\Release\minerGUI.exe
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\bin\Release\minerGUI.pdb
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\bin\Release\Newtonsoft.Json.dll
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\bin\Release\Newtonsoft.Json.xml
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\obj\Release\minerGUI.About.resources
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\obj\Release\minerGUI.Main.resources
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\obj\Release\minerGUI.Properties.Resources.resources
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\obj\Release\minerGUI.SplashScreen.resources
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\obj\Release\minerGUI.Statistics.resources
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\obj\Release\minerGUI.csproj.GenerateResource.Cache
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\obj\Release\minerGUI.exe
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\obj\Release\minerGUI.pdb
