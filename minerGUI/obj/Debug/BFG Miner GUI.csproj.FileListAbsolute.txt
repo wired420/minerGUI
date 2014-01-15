@@ -1,9 +1,0 @@
-c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\bin\Debug\BFG Miner GUI.exe.config
-c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\bin\Debug\BFG Miner GUI.exe
-c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\bin\Debug\BFG Miner GUI.pdb
-c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\BFG_Miner_GUI.Main.resources
-c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\BFG_Miner_GUI.Properties.Resources.resources
-c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\BFG Miner GUI.csproj.GenerateResource.Cache
-c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\BFG Miner GUI.exe
-c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\BFG Miner GUI.pdb
-c:\users\clayton\documents\visual studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\BFG_Miner_GUI.About.resources

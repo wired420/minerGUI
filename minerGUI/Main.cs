@@ -3,15 +3,19 @@ using System.IO;
 using System.Web;
 using System.Text;
 using System.Drawing;
+using System.Security;
 using System.Threading;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 using System.Runtime.InteropServices;
 
 namespace minerGUI
 {
     public partial class Main : Form
     {
+        static byte[] entropy = System.Text.Encoding.Unicode.GetBytes("%Cow!Boy1Butts*Drive%Me#Nutsz");
+
         [DllImport("user32.dll", SetLastError = true)]
         private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
@@ -37,6 +41,8 @@ namespace minerGUI
             ShowDefault = 10,
             ForceMinimized = 11
         }
+
+        Properties.Settings mainSettings = new Properties.Settings();
 
         public string poolAddr = "";
         public static string workLogin = "";
@@ -113,11 +119,22 @@ namespace minerGUI
         public void txtLogin_TextChanged(object sender, EventArgs e)
         {
             workLogin = txtLogin.Text;
+            mainSettings.workerLogin = workLogin;
+            mainSettings.Save();
         }
 
         public void txtPasswd_TextChanged(object sender, EventArgs e)
         {
             workPasswd = txtPasswd.Text;
+            mainSettings.workerPassword = EncryptString(ToSecureString(workPasswd));
+            mainSettings.Save();
+        }
+
+        public void txtToken_TextChanged(object sender, EventArgs e)
+        {
+            myToken = txtToken.Text;
+            mainSettings.accountToken = EncryptString(ToSecureString(myToken));
+            mainSettings.Save();
         }
 
         public void setDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
@@ -145,11 +162,6 @@ namespace minerGUI
         public void radPoolTCP_CheckedChanged(object sender, EventArgs e)
         {
             minerMethod = "http://";
-        }
-
-        public void txtToken_TextChanged(object sender, EventArgs e)
-        {
-            myToken = txtToken.Text;
         }
 
         public void btnStart_Click(object sender, EventArgs e)
@@ -271,7 +283,74 @@ namespace minerGUI
             this.radPoolTCP.Checked = true;
             this.radMinerEB.Checked = true;
             this.Text = ProductName;
+            if (mainSettings.workerLogin != "")
+            {
+                txtLogin.Text= mainSettings.workerLogin;
+            }
+            if (mainSettings.workerPassword != "")
+            {
+                SecureString password = DecryptString(mainSettings.workerPassword);
+                txtPasswd.Text = ToInsecureString(password);
+                password = ToSecureString("");
+            }
+            if (mainSettings.accountToken != "")
+            {
+                SecureString token = DecryptString(mainSettings.accountToken);
+                txtToken.Text = ToInsecureString(token);
+                token = ToSecureString("");
+            }
             tipChkToken.SetToolTip(this.chkToken, "See https://mining.bitcoin.cz/accounts/token-manage/");
+        }
+
+        public static string EncryptString(System.Security.SecureString input)
+        {
+            byte[] encryptedData = System.Security.Cryptography.ProtectedData.Protect(
+                System.Text.Encoding.Unicode.GetBytes(ToInsecureString(input)),
+                entropy,
+                System.Security.Cryptography.DataProtectionScope.CurrentUser);
+            return Convert.ToBase64String(encryptedData);
+        }
+
+        public static SecureString DecryptString(string encryptedData)
+        {
+            try
+            {
+                byte[] decryptedData = System.Security.Cryptography.ProtectedData.Unprotect(
+                    Convert.FromBase64String(encryptedData),
+                    entropy,
+                    System.Security.Cryptography.DataProtectionScope.CurrentUser);
+                return ToSecureString(System.Text.Encoding.Unicode.GetString(decryptedData));
+            }
+            catch
+            {
+                return new SecureString();
+            }
+        }
+
+        public static SecureString ToSecureString(string input)
+        {
+            SecureString secure = new SecureString();
+            foreach (char c in input)
+            {
+                secure.AppendChar(c);
+            }
+            secure.MakeReadOnly();
+            return secure;
+        }
+
+        public static string ToInsecureString(SecureString input)
+        {
+            string returnValue = string.Empty;
+            IntPtr ptr = System.Runtime.InteropServices.Marshal.SecureStringToBSTR(input);
+            try
+            {
+                returnValue = System.Runtime.InteropServices.Marshal.PtrToStringBSTR(ptr);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ZeroFreeBSTR(ptr);
+            }
+            return returnValue;
         }
     }
 }

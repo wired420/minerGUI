@@ -1,18 +1,4 @@
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\bin\Debug\minerGUI.exe.config
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\bin\Debug\minerGUI.exe
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\bin\Debug\minerGUI.pdb
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\bin\Debug\Newtonsoft.Json.dll
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\minerGUI.About.resources
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\minerGUI.Main.resources
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\minerGUI.Properties.Resources.resources
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\minerGUI.Statistics.resources
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\minerGUI.csproj.GenerateResource.Cache
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\minerGUI.exe
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\BFG Miner GUI\BFG Miner GUI\obj\Debug\minerGUI.pdb
 C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\bin\Debug\minerGUI.exe.config
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\obj\Debug\minerGUI.exe
-C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\obj\Debug\minerGUI.pdb
 C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\bin\Debug\minerGUI.exe
 C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\bin\Debug\minerGUI.pdb
 C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\bin\Debug\Newtonsoft.Json.dll
@@ -24,3 +10,5 @@ C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\obj\Deb
 C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\obj\Debug\minerGUI.SplashScreen.resources
 C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\obj\Debug\minerGUI.Statistics.resources
 C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\obj\Debug\minerGUI.csproj.GenerateResource.Cache
+C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\obj\Debug\minerGUI.exe
+C:\Users\Clayton\Documents\Visual Studio 2012\Projects\minerGUI\minerGUI\obj\Debug\minerGUI.pdb
