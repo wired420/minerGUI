@@ -275,10 +275,14 @@ namespace minerGUI
             if (chkToken.Checked)
             {
                 butStats.Visible = true;
+                mainSettings.tokenChecked = 1;
+                mainSettings.Save();
             }
             else
             {
                 butStats.Visible = false;
+                mainSettings.tokenChecked = 0;
+                mainSettings.Save();
             }
         }
 
@@ -318,6 +322,10 @@ namespace minerGUI
             {
                 diffLevel = mainSettings.diffSetting;
                 txtDiff.Text = diffLevel;
+            }
+            if (mainSettings.tokenChecked == 1)
+            {
+                chkToken.Checked = true;
             }
             tipChkToken.SetToolTip(this.chkToken, "See https://mining.bitcoin.cz/accounts/token-manage/");
         }

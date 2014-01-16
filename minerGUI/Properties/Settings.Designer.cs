@@ -94,5 +94,17 @@ namespace minerGUI.Properties {
                 this["diffSetting"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int tokenChecked {
+            get {
+                return ((int)(this["tokenChecked"]));
+            }
+            set {
+                this["tokenChecked"] = value;
+            }
+        }
     }
 }
