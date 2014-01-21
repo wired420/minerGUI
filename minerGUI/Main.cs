@@ -87,7 +87,7 @@ namespace minerGUI
 
             Thread thread = new Thread(new ThreadStart(this.ShowSplashScreen));
             thread.Start();
-
+            Thread.Sleep(500);
             Hardworker worker = new Hardworker();
             worker.ProgressChanged += (o, ex) =>
             {
@@ -99,7 +99,6 @@ namespace minerGUI
                 done = true;
                 this.Show();
             };
-
             worker.DoHardWork();
         }
 
@@ -297,6 +296,7 @@ namespace minerGUI
                     cmdString.Append("--thread-concurrency ");
                     cmdString.Append(mainSettings.threadConn + " ");
                 }
+                cmdString.Append("--scrypt ");
                 if (minerExe == "cgminer.exe")
                 {
                     cmdString.Append("-d all ");
