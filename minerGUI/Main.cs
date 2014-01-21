@@ -43,6 +43,13 @@ namespace minerGUI
         }
 
         Properties.Settings mainSettings = new Properties.Settings();
+        
+        // Stuff for building command line start command
+        public int useScrypt = 0;
+        public int useIntense = 0;
+        public int useGPUThread = 0;
+        public int useWorkSize = 0;
+        public int useThreadConn = 0;
 
         public string poolAddr = "";
         public static string workLogin = "";
@@ -52,11 +59,20 @@ namespace minerGUI
         public string minerMethod = "";
         public string diffLevel = "";
         public static string myToken = "";
+        public static string scrypt = "--scrypt";
+        public string intensityLevel = "";
+        public string gpuThread = "";
+        public string workSize = "";
+        public string threadConn = "";
+        public string cmdToRun;
 
         private SplashScreen splashScreen;
         private bool done = false;
+        
         Statistics statForm = new Statistics();
-        public const string minerExe = "bfgminer.exe";
+        StringBuilder cmdString = new StringBuilder();
+
+        public static string minerExe = "";
 
         public Main()
         {
@@ -96,6 +112,21 @@ namespace minerGUI
             }
             splashScreen.Close();
             this.splashScreen.Dispose();
+        }
+
+        public void setFile()
+        {
+            string fileOne = "bfgminer.exe";
+            string fileTwo = "cgminer.exe";
+
+            if (File.Exists(workDir + "\\" + fileOne))
+            {
+                minerExe = "bfgminer.exe";
+            }
+            if (File.Exists(workDir + "\\" + fileTwo))
+            {
+                minerExe = "cgminer.exe";
+            }
         }
 
         public void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -142,6 +173,7 @@ namespace minerGUI
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             DialogResult result = fbd.ShowDialog();
             workDir = fbd.SelectedPath;
+            setFile();
             mainSettings.minerDirectory = workDir;
             mainSettings.Save();
         }
@@ -149,21 +181,29 @@ namespace minerGUI
         public void radMinerEB_CheckedChanged(object sender, EventArgs e)
         {
             minerType = "-S erupter:all";
+            mainSettings.minerSwitch = 2;
+            mainSettings.Save();
         }
 
         public void radMinerGPU_CheckedChanged(object sender, EventArgs e)
         {
-            minerType = "";
+            minerType = "-S auto";
+            mainSettings.minerSwitch = 1;
+            mainSettings.Save();
         }
 
         public void radPoolStratum_CheckedChanged(object sender, EventArgs e)
         {
             minerMethod = "stratum+tcp://";
+            mainSettings.poolSwitch = 2;
+            mainSettings.Save();
         }
 
         public void radPoolTCP_CheckedChanged(object sender, EventArgs e)
         {
             minerMethod = "http://";
+            mainSettings.poolSwitch = 1;
+            mainSettings.Save();
         }
 
         public void btnStart_Click(object sender, EventArgs e)
@@ -179,9 +219,11 @@ namespace minerGUI
             }
             else
             {
+                buildString();
+                setFile();
                 ProcessStartInfo minerProcess = new ProcessStartInfo();
                 minerProcess.FileName = strMinExe;
-                minerProcess.Arguments = strCmdText;
+                minerProcess.Arguments = cmdToRun;
                 minerProcess.UseShellExecute = true;
 
                 if (chkToken.Checked)
@@ -215,6 +257,7 @@ namespace minerGUI
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             DialogResult result = fbd.ShowDialog();
             workDir = fbd.SelectedPath;
+            setFile();
             mainSettings.minerDirectory = workDir;
             mainSettings.Save();
         }
@@ -224,9 +267,77 @@ namespace minerGUI
             get { return workDir + "\\" + minerExe; }
         }
 
-        public string strCmdText
+        public void buildString()
         {
-            get { return "-o" + " " + minerMethod + poolAddr + " " + "-u" + " " + workLogin + " " + "-p" + " " + workPasswd + " " + minerType + " " + "--request-diff" + " " + diffLevel; }
+            cmdString.Clear();
+
+            // scrypt
+            if (useScrypt == 1)
+            {
+                cmdString.Append("-o " + poolAddr + " ");
+                cmdString.Append("-u " + workLogin + " ");
+                cmdString.Append("-p " + workPasswd + " ");
+                if (mainSettings.useIntense == 1 && mainSettings.intensityLevel != "")
+                {
+                    cmdString.Append("-I ");
+                    cmdString.Append(mainSettings.intensityLevel + " ");
+                }
+                if (mainSettings.useGPUThread == 1 && mainSettings.gpuThread != "")
+                {
+                    cmdString.Append("-g ");
+                    cmdString.Append(mainSettings.gpuThread + " ");
+                }
+                if (mainSettings.useWorkSize == 1 && mainSettings.workSize != "")
+                {
+                    cmdString.Append("-w ");
+                    cmdString.Append(mainSettings.workSize + " ");
+                }
+                if (mainSettings.useThreadConn == 1 && mainSettings.threadConn != "")
+                {
+                    cmdString.Append("--thread-concurrency ");
+                    cmdString.Append(mainSettings.threadConn + " ");
+                }
+                if (minerExe == "cgminer.exe")
+                {
+                    cmdString.Append("-d all ");
+                }
+                if (minerExe == "bfgminer.exe")
+                {
+                    cmdString.Append("-S auto ");
+                }
+                cmdToRun = cmdString.ToString();
+            }
+            else
+            {
+                //SHA256
+                cmdString.Append("-o " + poolAddr + " ");
+                cmdString.Append("-u " + workLogin + " ");
+                cmdString.Append("-p " + workPasswd + " ");
+                if (minerExe == "cgminer.exe")
+                {
+                    if (radMinerGPU.Checked)
+                    {
+                        cmdString.Append("-d all ");
+                    }
+                    else
+                    {
+                        cmdString.Append("-G ");
+                    }
+                }
+                if (minerExe == "bfgminer.exe")
+                {
+                    if (radMinerGPU.Checked)
+                    {
+                        cmdString.Append("-S auto ");
+                    }
+                    else
+                    {
+                        cmdString.Append("-S erupter:all");
+                    }
+                }
+                cmdToRun = cmdString.ToString();
+            }
+            cmdString.Clear();
         }
 
         public void btnStop_Click(object sender, EventArgs e)
@@ -238,8 +349,10 @@ namespace minerGUI
         {
             try
             {
+                string line = Main.minerExe;
+                string fileWOexe = Path.GetFileNameWithoutExtension(line);
 
-                Process [] proc = Process.GetProcessesByName("bfgminer");
+                Process[] proc = Process.GetProcessesByName(fileWOexe);
                 if (proc.Length != 0)
                 {
                     proc[0].Kill();
@@ -275,12 +388,14 @@ namespace minerGUI
             if (chkToken.Checked)
             {
                 butStats.Visible = true;
+                txtToken.ReadOnly = false;
                 mainSettings.tokenChecked = 1;
                 mainSettings.Save();
             }
             else
             {
                 butStats.Visible = false;
+                txtToken.ReadOnly = true;
                 mainSettings.tokenChecked = 0;
                 mainSettings.Save();
             }
@@ -290,12 +405,10 @@ namespace minerGUI
         {
             this.txtPoolAddr.Text = poolAddr;
             this.txtDiff.Text = "1.0";
-            this.radPoolTCP.Checked = true;
-            this.radMinerEB.Checked = true;
             this.Text = ProductName;
             if (mainSettings.workerLogin != "")
             {
-                txtLogin.Text= mainSettings.workerLogin;
+                txtLogin.Text = mainSettings.workerLogin;
             }
             if (mainSettings.workerPassword != "")
             {
@@ -326,6 +439,94 @@ namespace minerGUI
             if (mainSettings.tokenChecked == 1)
             {
                 chkToken.Checked = true;
+                txtToken.ReadOnly = false;
+            }
+            if (mainSettings.minerSwitch == 1)
+            {
+                radMinerGPU.Checked = true;
+                minerType = "-S auto";
+            }
+            if (mainSettings.minerSwitch == 2)
+            {
+                radMinerEB.Checked = true;
+                minerType = "-S erupter:all";
+            }
+            if (mainSettings.poolSwitch == 1)
+            {
+                radPoolTCP.Checked = true;
+                minerMethod = "http://";
+            }
+            if (mainSettings.poolSwitch == 2)
+            {
+                radPoolStratum.Checked = true;
+                minerMethod = "stratum+tcp://";
+            }
+            if (mainSettings.useScrypt == 1)
+            {
+                useScrypt = 1;
+                chkScrypt.Checked = true;
+                chkIntense.Enabled = true;
+                chkGPUThread.Enabled = true;
+                chkWorkSize.Enabled = true;
+                chkThreadConn.Enabled = true;
+                radMinerEB.Enabled = false;
+                radMinerGPU.Checked = true;
+                minerType = "-S auto";
+            }
+            if (mainSettings.useScrypt == 0)
+            {
+                useScrypt = 0;
+                chkScrypt.Checked = false;
+                chkIntense.Enabled = false;
+                chkGPUThread.Enabled = false;
+                chkWorkSize.Enabled = false;
+                chkThreadConn.Enabled = false;
+                radMinerEB.Enabled = true;
+                minerType = "-S auto";
+            }
+            if (mainSettings.useIntense == 1)
+            {
+                useIntense = 1;
+                txtIntense.ReadOnly = false;
+                chkIntense.Checked = true;
+
+                if (mainSettings.intensityLevel != "")
+                {
+                    txtIntense.Text = mainSettings.intensityLevel;
+                }
+            }
+            if (mainSettings.useGPUThread == 1)
+            {
+                useGPUThread = 1;
+                txtGPUThread.ReadOnly = false;
+                chkGPUThread.Checked = true;
+
+                if (mainSettings.gpuThread != "")
+                {
+                    txtGPUThread.Text = mainSettings.gpuThread;
+                }
+            }
+            if (mainSettings.useWorkSize == 1)
+            {
+                useWorkSize = 1;
+                txtWorkSize.ReadOnly = false;
+                chkWorkSize.Checked = true;
+
+                if (mainSettings.workSize != "")
+                {
+                    txtWorkSize.Text = mainSettings.workSize;
+                }
+            }
+            if (mainSettings.useThreadConn == 1)
+            {
+                useThreadConn = 1;
+                txtThreadConn.ReadOnly = false;
+                chkThreadConn.Checked = true;
+
+                if (mainSettings.threadConn != "")
+                {
+                    txtThreadConn.Text = mainSettings.threadConn;
+                }
             }
             tipChkToken.SetToolTip(this.chkToken, "See https://mining.bitcoin.cz/accounts/token-manage/");
         }
@@ -379,6 +580,134 @@ namespace minerGUI
                 System.Runtime.InteropServices.Marshal.ZeroFreeBSTR(ptr);
             }
             return returnValue;
+        }
+
+        private void chkScrypt_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkScrypt.Checked)
+            {
+                useScrypt = 1;
+                chkIntense.Enabled = true;
+                chkGPUThread.Enabled = true;
+                chkWorkSize.Enabled = true;
+                chkThreadConn.Enabled = true;
+                radMinerEB.Enabled = false;
+                radMinerGPU.Checked = true;
+                minerType = "-S auto";
+                mainSettings.useScrypt = useScrypt;
+                mainSettings.Save();
+            }
+            else
+            {
+                useScrypt = 0;
+                chkIntense.Enabled = false;
+                chkGPUThread.Enabled = false;
+                chkWorkSize.Enabled = false;
+                chkThreadConn.Enabled = false;
+                radMinerEB.Enabled = true;
+                mainSettings.useScrypt = useScrypt;
+                mainSettings.Save();
+            }
+        }
+
+        private void chkIntense_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkIntense.Checked)
+            {
+                useIntense = 1;
+                txtIntense.ReadOnly = false;
+                mainSettings.useIntense = useIntense;
+                mainSettings.Save();
+            }
+            else
+            {
+                useIntense = 0;
+                txtIntense.ReadOnly = true;
+                mainSettings.useIntense = useIntense;
+                mainSettings.Save();
+            }
+        }
+
+        private void chkGPUThread_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkGPUThread.Checked)
+            {
+                useGPUThread = 1;
+                txtGPUThread.ReadOnly = false;
+                mainSettings.useGPUThread = useGPUThread;
+                mainSettings.Save();
+            }
+            else
+            {
+                useGPUThread = 0;
+                txtGPUThread.ReadOnly = true;
+                mainSettings.useGPUThread = useGPUThread;
+                mainSettings.Save();
+            }
+        }
+
+        private void chkWorkSize_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkWorkSize.Checked)
+            {
+                useWorkSize = 1;
+                txtWorkSize.ReadOnly = false;
+                mainSettings.useWorkSize = useWorkSize;
+                mainSettings.Save();
+            }
+            else
+            {
+                useWorkSize = 0;
+                txtWorkSize.ReadOnly = true;
+                mainSettings.useWorkSize = useWorkSize;
+                mainSettings.Save();
+            }
+        }
+
+        private void chkThreadConn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkThreadConn.Checked)
+            {
+                useThreadConn = 1;
+                txtThreadConn.ReadOnly = false;
+                mainSettings.useThreadConn = useThreadConn;
+                mainSettings.Save();
+            }
+            else
+            {
+                useThreadConn = 0;
+                txtThreadConn.ReadOnly = true;
+                mainSettings.useThreadConn = useThreadConn;
+                mainSettings.Save();
+            }
+        }
+
+        private void txtIntense_TextChanged(object sender, EventArgs e)
+        {
+            intensityLevel = txtIntense.Text;
+            mainSettings.intensityLevel = intensityLevel;
+            mainSettings.Save();
+        }
+
+        private void txtGPUThread_TextChanged(object sender, EventArgs e)
+        {
+            gpuThread = txtGPUThread.Text;
+            mainSettings.gpuThread = gpuThread;
+            mainSettings.Save();
+        }
+
+        private void txtWorkSize_TextChanged(object sender, EventArgs e)
+        {
+            workSize = txtWorkSize.Text;
+            mainSettings.workSize = workSize;
+            mainSettings.Save();
+        }
+
+        private void txtThreadConn_TextChanged(object sender, EventArgs e)
+        {
+            threadConn = txtThreadConn.Text;
+            mainSettings.threadConn = threadConn;
+            mainSettings.Save();
         }
     }
 }

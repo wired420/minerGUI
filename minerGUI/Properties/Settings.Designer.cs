@@ -106,5 +106,137 @@ namespace minerGUI.Properties {
                 this["tokenChecked"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int minerSwitch {
+            get {
+                return ((int)(this["minerSwitch"]));
+            }
+            set {
+                this["minerSwitch"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int poolSwitch {
+            get {
+                return ((int)(this["poolSwitch"]));
+            }
+            set {
+                this["poolSwitch"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string intensityLevel {
+            get {
+                return ((string)(this["intensityLevel"]));
+            }
+            set {
+                this["intensityLevel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string gpuThread {
+            get {
+                return ((string)(this["gpuThread"]));
+            }
+            set {
+                this["gpuThread"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string workSize {
+            get {
+                return ((string)(this["workSize"]));
+            }
+            set {
+                this["workSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string threadConn {
+            get {
+                return ((string)(this["threadConn"]));
+            }
+            set {
+                this["threadConn"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int useIntense {
+            get {
+                return ((int)(this["useIntense"]));
+            }
+            set {
+                this["useIntense"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int useGPUThread {
+            get {
+                return ((int)(this["useGPUThread"]));
+            }
+            set {
+                this["useGPUThread"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int useWorkSize {
+            get {
+                return ((int)(this["useWorkSize"]));
+            }
+            set {
+                this["useWorkSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int useThreadConn {
+            get {
+                return ((int)(this["useThreadConn"]));
+            }
+            set {
+                this["useThreadConn"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int useScrypt {
+            get {
+                return ((int)(this["useScrypt"]));
+            }
+            set {
+                this["useScrypt"] = value;
+            }
+        }
     }
 }

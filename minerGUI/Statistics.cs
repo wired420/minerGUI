@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Web;
 using System.Data;
@@ -260,15 +261,18 @@ namespace minerGUI
         {
             try
             {
-                Process[] proc = Process.GetProcessesByName("bfgminer");
+                string line = Main.minerExe;
+                string fileWOexe = Path.GetFileNameWithoutExtension(line);
+
+                Process[] proc = Process.GetProcessesByName(fileWOexe);
 
                 if (proc.Length != 0)
                 {
-                    lblStatus.Text = "Status: BFGMiner is running...";
+                    lblStatus.Text = "Status: Miner is running...";
                 }
                 else
                 {
-                    lblStatus.Text = "Status: BFGMiner is NOT running!";
+                    lblStatus.Text = "Status: Miner is NOT running!";
                 }
             }
             catch (Exception ex)
